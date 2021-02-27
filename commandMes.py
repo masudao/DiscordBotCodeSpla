@@ -15,6 +15,7 @@ def mes(value):
 	elif value == '/oppai':
 		return random.choice(nobita) + '＜' + '<:47_otu:814169679991275562>' + '<:47_pai:814177301771714591>'
 	elif value == '/next_gachi':
-		return '次のガチマのルールは' + jsonDataKai.ruleDo(next_gachi)
-	elif value == 'next_league':
-		return '次のリグマのルールは' + jsonDataKai.ruleDo(next_league)
+		return '次のガチマのルールは' + jsonDataKai.ruleDo(20) + '\nステージは'
+	elif value == '/next_league':
+		return '次のリグマのルールは' + jsonDataKai.ruleDo(21)
+		

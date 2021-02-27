@@ -12,37 +12,31 @@ url_league_next = 'https://spla2.yuu26.com/league/next'
 #ルールの情報
 def ruleDo(val):
 	if val == 1:
-		#今のガチマ情報
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+		#今のガチマ情報取得
+		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存イカ同様
 		response = requests.get(url_gachi)
-		#response.json()でJSONデータに変換して変数へ保存
+		#response.json()でJSONデータに変換して変数へ保存イカ同様
 		jsonData = response.json()
 		
 		return jsonData["result"][0]["rule"]
 		
 	elif val == 2: 
-		#今のリグマ情報
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+		#今のリグマ情報取得
 		response = requests.get(url_league)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 		
 		return jsonData["result"][0]["rule"]
 		
-	elif val == next_gachi:
-		#次のガチマ情報
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+	elif val == 20:
+		#次のガチマ情報取得
 		response = requests.get(url_gachi_next)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 		
 		return jsonData["result"][0]["rule"]
 
-	elif val == next_league:
-		#次のリグマ情報
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+	elif val == 21:
+		#次のリグマ情報取得
 		response = requests.get(url_league_next)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 		
 		return jsonData["result"][0]["rule"]
@@ -51,22 +45,16 @@ def ruleDo(val):
 #ステージの情報
 def stageDo(num):
 	if 0 < num < 5:
-		#ガチマ
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+		#今のガチマのステージ情報取得
 		response = requests.get(url_gachi)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 	elif 4 < num < 9:
-		#リグマ
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保
+		#今のリグマのステージ情報取得
 		response = requests.get(url_league)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 	elif 9 < num < 14:
-		#ナワバリ
-		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保
+		#今のナワバリのステージ情報取得
 		response = requests.get(url_nawabari)
-		#response.json()でJSONデータに変換して変数へ保存
 		jsonData = response.json()
 		
 	# 1~2はガチマステージ名、3~4はガチマステージ写真、5~6はリグマステージ名、7~8はリグマステージ写真
