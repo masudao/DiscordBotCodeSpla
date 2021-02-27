@@ -6,11 +6,13 @@ import json
 url_gachi = 'https://spla2.yuu26.com/gachi/now'
 url_league = 'https://spla2.yuu26.com/league/now'
 url_nawabari = 'https://spla2.yuu26.com/regular/now'
+url_gachi_next = 'https://spla2.yuu26.com/gachi/next'
+url_league_next = 'https://spla2.yuu26.com/league/next'
 
 #ルールの情報
 def ruleDo(val):
 	if val == 1:
-		#ガチマ
+		#今のガチマ情報
 		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
 		response = requests.get(url_gachi)
 		#response.json()でJSONデータに変換して変数へ保存
@@ -19,7 +21,7 @@ def ruleDo(val):
 		return jsonData["result"][0]["rule"]
 		
 	elif val == 2: 
-	#リグマ
+		#今のリグマ情報
 		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
 		response = requests.get(url_league)
 		#response.json()でJSONデータに変換して変数へ保存
@@ -27,6 +29,24 @@ def ruleDo(val):
 		
 		return jsonData["result"][0]["rule"]
 		
+	elif val == next_gachi:
+		#次のガチマ情報
+		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+		response = requests.get(url_gachi_next)
+		#response.json()でJSONデータに変換して変数へ保存
+		jsonData = response.json()
+		
+		return jsonData["result"][0]["rule"]
+
+	elif val == next_league:
+		#次のリグマ情報
+		#requests.getを使うと、レスポンス内容を取得できるのでとりあえず変数へ保存
+		response = requests.get(url_league_next)
+		#response.json()でJSONデータに変換して変数へ保存
+		jsonData = response.json()
+		
+		return jsonData["result"][0]["rule"]
+
 
 #ステージの情報
 def stageDo(num):
