@@ -1,9 +1,9 @@
-# インストールした discord.py を読み込む
 import discord
-# jsonData.pyの読み込み
 import jsonDataKai
-# commandMes.pyの読み込み
+from jsonDataKai import StageData
 import commandMes
+from stage_image import mergeImage
+
 #時間関連処理の読み込み
 from discord.ext import tasks
 import asyncio
@@ -52,16 +52,13 @@ async def on_message(message):
 	if message.content in command:
 		await message.channel.send(commandMes.mes(message.content))
 		print('動作確認！')
-	
-	# 「/nobita」と発言したらナワバリ情報が帰ってくるコマンド処理。コマンド処理は上記の別ファイルのメソッド云々に以降しました。
-	#if message.content == '/nobita':
-		#await message.channel.send('ナワバリのルールは' + jsonDataKai.ruleDo())
-		#await message.channel.send('ナワバリのステージは' + jsonDataKai.stageDo(10) + 'と' + jsonDataKai.stageDo(11) + random.choice(nobita))
-		#await message.channel.send(jsonDataKai.stageDo(12))
-		#await message.channel.send(jsonDataKai.stageDo(13))
-		#print('動作確認！')
-	#elif message.content == '/oppai':
-		#await message.channel.send(random.choice(nobita) + '＜' + '<:47_otu:814169679991275562>' + '<:47_pai:814177301771714591>')
+	elif message.content.startswith('教えてボット'):
+		stage_data = StageData().get_gachi_now()
+		embed, image_path = set_embed(stage_data, "ガチマッチ")
+		await message.channel.send(embed=embed, file=image_path)
+		stage_data = StageData().get_league_now()
+		embed, image_path = set_embed(stage_data, "リーグマッチ")
+		await message.channel.send(embed=embed, file=image_path)
     	
 
 #トリガータイムのリストをforで順番に見ていき、ifで現在の時間と一致するものがあれば実施
@@ -88,6 +85,21 @@ async def loop():
 		else:
 			print('今の時間は' + now)
 
+def set_embed(stage_data, mode):
+    mergeImage(stage_data.stage1_image, stage_data.stage2_image)
+    image_path = discord.File("output.png", filename="output.png")
+
+    embed = discord.Embed(
+        title = mode,
+        colour = discord.Colour.blue()
+    )
+
+    embed.add_field(name=stage_data.rule, value=chr(173), inline=False)
+    embed.add_field(name=stage_data.stage1_name, value=chr(173), inline=True)
+    embed.add_field(name=stage_data.stage2_name, value=chr(173), inline=True)
+    embed.set_image(url="attachment://output.png")
+
+    return embed, image_path
 
 #ループ処理実行
 loop.start()
