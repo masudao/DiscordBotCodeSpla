@@ -9,6 +9,29 @@ url_nawabari = 'https://spla2.yuu26.com/regular/now'
 url_gachi_next = 'https://spla2.yuu26.com/gachi/next'
 url_league_next = 'https://spla2.yuu26.com/league/next'
 
+class StageData:
+    def get_gachi_now(self):
+        response = requests.get(url_gachi)
+        jsonData = response.json()
+        stage = Stage(jsonData)
+        return stage
+
+    def get_league_now(self):
+        response = requests.get(url_league)
+        jsonData = response.json()
+        stage = Stage(jsonData)
+        return stage
+        
+class Stage:
+    def __init__(self, jsonData):
+        self.rule = jsonData["result"][0]["rule"]
+        self.stage1_name = jsonData["result"][0]["maps_ex"][0]["name"]
+        self.stage1_image = jsonData["result"][0]["maps_ex"][0]["image"]
+        self.stage2_name = jsonData["result"][0]["maps_ex"][1]["name"]
+        self.stage2_image = jsonData["result"][0]["maps_ex"][1]["image"]
+        self.start = jsonData["result"][0]["start"]
+        self.end = jsonData["result"][0]["end"]
+
 #ルールの情報
 def ruleDo(val):
 	if val == 1:
